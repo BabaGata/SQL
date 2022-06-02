@@ -1,0 +1,61 @@
+CREATE TABLE Tablica1
+(
+atr1 tip [not null],
+atr2 tip [not null],
+);
+//moze i u 1 red
+
+
+CREATE TABLE Student
+(mbroj number not null,
+ime varchar2 (20),
+prezime varchar2 (20),
+datrdodj date);
+
+
+DESC Student   //tablica
+
+
+ALTER TABLE Student
+ADD (Adresa varchar2 (20));
+//dodavanje 
+
+
+ALTER TABLE Student
+MODIFY (ime varchar2(15));
+//promjena specifikacija 
+
+
+INSERT INTO Student
+VALUES(43323, 'Marko', 'Periæ', '25011985', NULL);
+SELECT * FROM Student; //ispis
+//upis
+
+
+INSERT INTO Student (ime, prezime, mbroj)
+VALUES('Lovro', 'Antic', 35666);
+//ne sve, moramo reci sto upisujemo pa upisemo.
+
+
+UPDATE Student
+SET Adresa='Omladinska 14'
+WHERE Ime='Marko';
+//mjenja vrijednosti
+
+
+DELETE FROM Student
+WHERE ime='Lovro';
+//brisemo lovru
+
+
+CREATE VIEW Adresa AS
+SELECT ime, prezime from Student
+WHERE adresa='Omladinska 14';
+//poostaviti pogled
+
+
+DROP VIEW adresa;
+//brisanje pogleda
+
+
+DROP TABLE Student;

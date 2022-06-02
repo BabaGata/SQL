@@ -1,0 +1,95 @@
+CREATE TABLE Poslovnica
+(sifra_pos number(5) not null,
+naziv_pos varchar(20) not null, 
+odg_osoba varchar(20),
+CONSTRAINT pos_pk PRIMARY KEY (sifra_pos, naziv_pos));  --->primarni kljuc
+
+za mjenjanje kljuca najprije izbrisat postojeci kljuc pa s alter table napraviti novi
+
+ALTER TABLE Poslovnica
+DROP CONSTRAINT pos_pk;
+//brise PK
+
+ALTER TABLE Poslovnica
+add CONSTRAINT pos_pk PRIMARY KEY (sifra_pos);
+//dodaj novi PK
+
+CREATE TABLE Roba
+(sifra_robe number(5) not null,
+naziv_robe varchar2(20),
+sifra_pos number(5) not null,
+CONSTRAINT fk_poslovnica FOREIGN KEY (sifra_pos)
+REFERENCES poslovnica (sifra_pos));
+//VK
+
+
+CREATE TABLE Trgovina
+(sifra_trg number(5) not null, naziv_trg varchar2(20), odg_osoba varchar2(20),
+CONSTRAINT trg_uqe UNIQUE (sifra_trg));
+//jedinstvenost
+
+
+ALTER TABLE Trgovina
+add CONSTRAINT chk_naziv
+CHECK (naziv_trg IN ('Konzum', 'Plodine', 'Billa'));
+//uvjeti
+
+
+INSERT INTO Trgovina
+VALUES (12345, 'Konzum', 'Marko');
+
+INSERT INTO Trgovina
+VALUES (12346, 'Kaufland', 'Ivo'); //javlja gresku
+
+
+RENAME Trgovina to Butiga; //preimenovanje
+
+
+zad:
+
+CREATE TABLE proizvodjac
+(sifra_pro varchar2(2) not null,
+naziv_pro varchar2(20) not null,
+sjediste varchar2(20));
+
+CREATE TABLE gume
+(sifra_gume varchar2(6) not null,
+naziv_gume varchar2(30) not null,
+sifra_pro varchar2(2) not null,
+namjena varchar2(15) not null,
+cijena number(6,2) not null);
+
+ALTER TABLE Gume
+ADD (zaliha number not null);
+
+RENAME Proizvodjac TO Dobavljac;
+
+INSERT INTO Dobavljac
+VALUES ('gy', 'goodyear', 'buffalo');
+INSERT INTO Dobavljac
+VALUES ('dl', 'dunlop', 'akron');
+INSERT INTO Dobavljac
+VALUES ('pr', 'pirelli', 'milano');
+INSERT INTO Dobavljac
+VALUES ('mn', 'michelin', null);
+
+INSERT INTO Gume
+VALUES ('gy2455', 'duragrip', 'gy', 'ljetne', 528.66, 12);
+INSERT INTO Gume
+VALUES ('dl5959', 'spmaxx', 'dl', 'ljetne', 621.98, 16);
+
+
+INSERT INTO Gume
+SELECT * FROM pposcic.pp_gume;
+
+DELETE FROM Gume
+WHERE SIFRA_GUME='GY3455';
+
+CREATE INDEX ind 
+ON Gume (naziv_gume);
+
+DROP INDEX ind;
+
+CREATE VIEW ljetne AS
+SELECT sifra_gume, naziv_gume FROM gume
+WHERE namjena='ljetne';

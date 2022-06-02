@@ -1,0 +1,92 @@
+SELECT LEVEL, IME, PREZIME, SRADNIK, POSAO, SODJEL, SNADR FROM RADNIK CONNECT 
+BY PRIOR SRADNIK=SNADR START WITH IME='STJEPAN';
+-->STRUKTURA
+
+
+
+SQL PLUS
+bez ;
+ne cuvaju se u bufferu
+- za novi red (ako nesto nastavljamo u novi red)
+-linijski editor
+sql plus na zadnjoj (*)
+
+@, #, $, /
+/ - zadnju naredbu iz buffera (ili r - ali ispisat ce i naredbu, / samo rezultat)
+
+append, break, btitle, change, clear, column...
+
+CHANGE:
+C/RADDNIK/RADNIK/
+i onda l ili r
+
+L 1
+C/*/IME/
+
+L 1
+A, POSAO
+--> za dodavanje posla
+
+L 2
+WHERE SODJEL=30;
+-->dodavanje jos uvjeta nakon zadnje linije
+-->2 ENTERA
+
+DEL - BRISANJE TEKUÆE LINIJE
+DEL N - BRISE N-TU LINIJU
+DEL * - TEKUÆE
+DEL LAST - BRISE POSLJEDNJU
+CLEAR BUFF - SVE LINIJE BRISE
+
+SAVE UPITA - SPREMA NAREDBU KO UPIT --TREBA IMAT ADMINISTRACIJSKE OVLASTI, DOMA IMAMO, NA FAXU NEMA
+
+set editfile C:\users\matea.smokovic\oracle\edit.sql
+ONDA S EDIT POZVAT, OTVORI TXT, PROMJENIM, SPREMIN I ONDA S RUN ILI / POKRENEM
+
+save C:\users\matea.smokovic\oracle\upit1.sql
+get editfile C:\users\matea.smokovic\oracle\upit1.sql
+start editfile C:\users\matea.smokovic\oracle\upit1.sql
+
+get je sporija od start-start popuni buffer i pokrene se naredba istovremeno, get mora u 2 koraka
+
+ZADACI
+1.
+
+2.
+SELECT IME, PREZIME FROM ODJEL
+C/ODJEL/RADNIK/
+L
+
+3.
+L 1
+A, PLACA
+
+4.
+L 2
+I
+WHERE IME LIKE 'M%'
+
+
+KOD ZA SIFRU
+SAVE C:\USERC\MATEA.SMOKOVIC\ORACLE\UPITSIFRE.SQL
+START C:\USERC\MATEA.SMOKOVIC\ORACLE\UPITSIFRE.SQL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
